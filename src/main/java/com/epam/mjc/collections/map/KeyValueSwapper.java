@@ -11,14 +11,8 @@ public class KeyValueSwapper {
             Integer val = pair.getKey();
             String key = pair.getValue();
 
-            if (targetMap.containsKey(key)) {
-                Integer prevVal = targetMap.get(key);
-                if (val < prevVal) {
-                    targetMap.put(key, val);
-                }
-            } else {
-                targetMap.put(key, val);
-            }
+            targetMap.putIfAbsent(key, val);
+            targetMap.computeIfPresent(key, (k, v) -> val < v ? val : v);
         }
 
         return targetMap;
