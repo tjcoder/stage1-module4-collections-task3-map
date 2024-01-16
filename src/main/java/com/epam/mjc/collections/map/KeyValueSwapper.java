@@ -8,11 +8,16 @@ public class KeyValueSwapper {
         Map<String, Integer> targetMap = new LinkedHashMap<>();
 
         for (Map.Entry<Integer, String> pair : sourceMap.entrySet()) {
-            Integer key = pair.getKey();
-            String val = pair.getValue();
+            Integer val = pair.getKey();
+            String key = pair.getValue();
 
-            if (!targetMap.containsKey(val)) {
-                targetMap.put(val, key);
+            if (targetMap.containsKey(key)) {
+                Integer prevVal = targetMap.get(key);
+                if (val < prevVal) {
+                    targetMap.put(key, val);
+                }
+            } else {
+                targetMap.put(key, val);
             }
         }
 
